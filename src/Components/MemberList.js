@@ -1,23 +1,8 @@
 
 import React, { Component } from 'react';
+import Member from './Member';
+import getMembers from './getMembers';
 
-const getMembers = count => new Promise((resolves, rejects) => {
-    const apiUrl = `https://api.randomuser.me/?nat=US&results=${count}`;
-    const request = new XMLHttpRequest();
-    request.open("GET", apiUrl);
-    request.onload = () => (request.status === 200) ? resolves(JSON.parse(request.response).results) : rejects(Error(request.statusText));
-    request.onerror = err => rejects(err);
-    request.send();
-  });
-  
-  const Member = ({email, picture, name, location}) =>
-    <div>
-      <img src={picture.thumbnail} alt="thumbnail"/>
-      <h1>{name.first} {name.last}</h1>
-      <p><a href={"mailto:" + email}>{email}</a></p>
-      <p>{location.city} {location.state}</p>
-    </div>;
-  
   class MemberList extends Component {
     constructor() {
       super();
@@ -29,7 +14,6 @@ const getMembers = count => new Promise((resolves, rejects) => {
     }
   
     componentWillMount() {
-      console.log("componentWillMount");
       this.setState({loading: true});
       const onsuccess = members => {this.setState({members, loading: false})};
       const onerror = error => {this.setState({error, loading: false})};
@@ -53,4 +37,3 @@ const getMembers = count => new Promise((resolves, rejects) => {
   }
 
   export default MemberList;
-  
