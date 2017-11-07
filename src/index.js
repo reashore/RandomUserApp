@@ -5,6 +5,6 @@ import MemberList from "./Components/MemberList";
 import registerServiceWorker from './registerServiceWorker';
 
 let root = document.getElementById('root');
-ReactDOM.render(<MemberList />, root);
+ReactDOM.render(<MemberList count="5" />, root);
 
 registerServiceWorker();

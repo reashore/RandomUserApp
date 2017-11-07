@@ -4,8 +4,8 @@ import Member from './Member';
 import getMembers from './getMembers';
 
 class MemberList extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             members: [],
             loading: false,
@@ -20,23 +20,19 @@ class MemberList extends Component {
         getMembers(this.props.count).then(onsuccess, onerror);
     }
 
-    componentWillUpdate() {
-        //console.log("componentWillUpdate");
-    }
-
     render() {
         const { members, loading, error } = this.state;
-        let result;
+        let successResult;
         let errorResult;
 
         if (loading) {
-            result = <span>Loading Members</span>;
+            successResult = <span>Loading Members</span>;
         } else if (members.length) {
-            result = members.map((user, i) => <Member key={i} {...user} />);
+            successResult = members.map((user, i) => <Member key={i} {...user} />);
         } else {
-            result = <span>No members loaded</span>;
-        };       
-        
+            successResult = <span>No members loaded</span>;
+        };
+
         if (error) {
             errorResult = <p>Error loading members: error</p>;
         } else {
@@ -45,8 +41,8 @@ class MemberList extends Component {
 
         return (
             <div>
-                { result }
-                { errorResult }
+                <div>{successResult}</div>
+                <div>{errorResult}</div>
             </div>
         );
     }
